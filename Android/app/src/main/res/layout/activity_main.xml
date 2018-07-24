@@ -28,9 +28,17 @@
         android:id="@+id/btnStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="8dp"
         android:text="STOP"
         app:layout_constraintStart_toEndOf="@+id/btnTest"
         tools:layout_editor_absoluteY="16dp" />
+
+    <SeekBar
+        android:id="@+id/seekPitch"
+        android:layout_width="356dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="14dp" />
 
 </android.support.constraint.ConstraintLayout>

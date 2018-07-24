@@ -60,21 +60,21 @@ void loop() {
    int leftPower, rightPower, midlePower = 0;
    int leftDir, rightDir, midleDir = 0;
 
-   leftPower = values[0] * 4;
+   leftPower = values[0] * 1;
    leftPower += values[1] * 2;
-   leftPower += values[2] * 1;
+   leftPower += values[2] * 4;
    leftDir = values[3];
    //Serial.println("leftP:");
    //Serial.println(leftPower);
-   rightPower = values[4] * 4;
+   rightPower = values[4] * 1;
    rightPower += values[5] * 2;
-   rightPower += values[6] * 1;
+   rightPower += values[6] * 4;
    rightDir = values[7];
    //Serial.println("rightP:");
    //Serial.println(rightDir);
-   midlePower = values2[0] * 4;
+   midlePower = values2[0] * 1;
    midlePower += values2[1] * 2;
-   midlePower += values2[2] * 1;
+   midlePower += values2[2] * 4;
    midleDir = values2[3];
    //Serial.println("midleP:");
    //Serial.println(midlePower);
