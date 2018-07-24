@@ -6,12 +6,17 @@ import android.view.View
 import android.widget.SeekBar
 import com.cityu.teaching.fishcontroller.models.BLEConnection
 import kotlinx.android.synthetic.main.activity_main.*
+import android.view.View.OnFocusChangeListener
+
+
 
 class MainActivity : AppCompatActivity() {
     val MAC_ADDRESS : String = "E0:E5:CF:24:5D:B9"
     private lateinit var bConn : BLEConnection
 
-    val midlePower = 0
+    var leftMotorPow = 0
+    var rightMotorPow = 0
+    var midleMotorPow = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,28 +29,25 @@ class MainActivity : AppCompatActivity() {
         bConn = BLEConnection()
         getConnection()
 
-        btnTest.setOnClickListener {
-            if(!bConn.canSendData())
-                return@setOnClickListener
-
-            val b = ByteArray(2)
-            /*val i = Integer.parseInt("01111110", 2)
-            val btmp = i.toByte()
-            val i2 = btmp.toInt()*/
-            b[0] = Integer.parseInt("00000000", 2).toByte();
-            b[1] = Integer.parseInt("00001111", 2).toByte();
-            bConn.sendData(b)
-        }
-
-
         btnStop.setOnClickListener {
             if(!bConn.canSendData())
                 return@setOnClickListener
-
             val b = ByteArray(2)
             b[0] = Integer.parseInt("00000000", 2).toByte();
             b[1] = Integer.parseInt("00000000", 2).toByte();
             bConn.sendData(b)
+        }
+
+        btnForward.setOnClickListener {
+            if(leftMotorPow == 0) {
+                leftMotorPow = 7
+                rightMotorPow = 7
+            }
+            else{
+                leftMotorPow = 0
+                rightMotorPow = 0
+            }
+            sendData()
         }
 
         seekPitch.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -55,10 +57,8 @@ class MainActivity : AppCompatActivity() {
                 println("Progress : $i")
                 sendData()
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar) {
             }
-
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             return
 
         val b = ByteArray(2)
-        b[0] = Integer.parseInt("00000000", 2).toByte();
+        b[0] = Integer.parseInt("1"+valToBits(rightMotorPow)+"1"+valToBits(leftMotorPow), 2).toByte();
 
         b[1] = Integer.parseInt("00000"+valToBits(seekPitch.progress), 2).toByte();
         bConn.sendData(b)
