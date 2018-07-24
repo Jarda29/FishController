@@ -19,16 +19,34 @@ class MainActivity : AppCompatActivity() {
         btnTest.setOnClickListener {
             if(!bConn.canSendData())
                 return@setOnClickListener
-            bConn.sendData("R-100-0")
-            Thread.sleep(500)
-            bConn.sendData("L-100-0")
+
+            val b = ByteArray(2)
+            /*val i = Integer.parseInt("01111110", 2)
+            val btmp = i.toByte()
+            val i2 = btmp.toInt()*/
+            b[0] = Integer.parseInt("00000000", 2).toByte();
+            b[1] = Integer.parseInt("00001111", 2).toByte();
+            bConn.sendData(b)
         }
 
+
+        btnStop.setOnClickListener {
+            if(!bConn.canSendData())
+                return@setOnClickListener
+
+            val b = ByteArray(2)
+            b[0] = Integer.parseInt("00000000", 2).toByte();
+            b[1] = Integer.parseInt("00000000", 2).toByte();
+            bConn.sendData(b)
+        }
 
     }
 
     override fun onStop() {
-        bConn.sendData("STOP")
+        val b = ByteArray(2)
+        b[0] = Integer.parseInt("00000000", 2).toByte();
+        b[1] = Integer.parseInt("00000000", 2).toByte();
+        bConn.sendData(b)
         bConn.disconnect()
         super.onStop()
     }
