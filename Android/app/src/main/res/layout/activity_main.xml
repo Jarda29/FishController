@@ -35,11 +35,27 @@
 
     <Button
         android:id="@+id/btnForward"
-        android:layout_width="356dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="203dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:text="Forward"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="10dp" />
+        app:layout_constraintBottom_toTopOf="@+id/seekPitch"
+        app:layout_constraintStart_toEndOf="@+id/btnStop" />
+
+    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joyStick"
+        android:layout_width="237dp"
+        android:layout_height="236dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        custom:JV_backgroundColor="#009688"
+        custom:JV_borderColor="#00796B"
+        custom:JV_borderWidth="4dp"
+        custom:JV_buttonColor="#FF6E40"
+        custom:JV_buttonSizeRatio="15%"
+        custom:JV_fixedCenter="false"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

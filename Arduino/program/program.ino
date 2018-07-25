@@ -1,10 +1,10 @@
 #include <SoftwareSerial.h>
 SoftwareSerial BT(5,4 );
 
-int LEFT_MOTOR_DIGITAL = 8;
-int LEFT_MOTOR_PWM = 9;
-int RIGHT_MOTOR_DIGITAL = 10;
-int RIGHT_MOTOR_PWM = 11;
+int LEFT_MOTOR_DIGITAL = 10;
+int LEFT_MOTOR_PWM = 11;
+int RIGHT_MOTOR_DIGITAL = 8;
+int RIGHT_MOTOR_PWM = 9;
 int MIDLE_MOTOR_DIGITAL = 7;
 int MIDLE_MOTOR_PWM = 6;
 
