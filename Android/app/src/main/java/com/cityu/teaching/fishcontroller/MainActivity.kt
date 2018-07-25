@@ -1,13 +1,10 @@
 package com.cityu.teaching.fishcontroller
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.support.v7.app.AppCompatActivity
 import android.widget.SeekBar
 import com.cityu.teaching.fishcontroller.models.BLEConnection
 import kotlinx.android.synthetic.main.activity_main.*
-import android.view.View.OnFocusChangeListener
-import com.cityu.teaching.fishcontroller.R.styleable.JoystickView
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,24 +37,14 @@ class MainActivity : AppCompatActivity() {
         btnStop.setOnClickListener {
             if(!bConn.canSendData())
                 return@setOnClickListener
-            val b = ByteArray(2)
-            b[0] = Integer.parseInt("00000000", 2).toByte();
-            b[1] = Integer.parseInt("00000000", 2).toByte();
-            bConn.sendData(b)
-        }
 
-        btnForward.setOnClickListener {
-            if(leftMotorPow == 0) {
-                leftMotorPow = 7
-                rightMotorPow = 7
-            }
-            else{
-                leftMotorPow = 0
-                rightMotorPow = 0
-            }
+            seekPitch.setProgress(0)
+            leftMotorPow = 0
+            rightMotorPow = 0
+            leftMotorDir = 0
+            rightMotorDir = 0
             sendData()
         }
-
         seekPitch.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 // Display the current progress of SeekBar
@@ -80,9 +67,9 @@ class MainActivity : AppCompatActivity() {
     private fun calculatePerformance(angle: Int, strength: Int) {
         if(angle<30 || angle>330){
             leftMotorPow = 7
-            rightMotorPow = 0
+            rightMotorPow = 7
             leftMotorDir = 1
-            rightMotorDir = 1
+            rightMotorDir = 0
         }
         else if(angle<70){
             leftMotorPow = 7
@@ -103,9 +90,9 @@ class MainActivity : AppCompatActivity() {
             rightMotorDir = 1
         }
         else if(angle<210){
-            leftMotorPow = 0
+            leftMotorPow = 7
             rightMotorPow = 7
-            leftMotorDir = 1
+            leftMotorDir = 0
             rightMotorDir = 1
         }
         else if(angle<250){
@@ -132,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             rightMotorPow = 0
         }
         else if(strength<30){
-            for (i in 0..2){
+            for (i in 0..5){
                 if(leftMotorPow>0)
                     leftMotorPow--
                 if(rightMotorPow>0)
@@ -140,7 +127,23 @@ class MainActivity : AppCompatActivity() {
             }
         }
         else if(strength<60){
-            for (i in 0..4){
+            for (i in 0..3){
+                if(leftMotorPow>0)
+                    leftMotorPow--
+                if(rightMotorPow>0)
+                    rightMotorPow--
+            }
+        }
+        else if(strength<80){
+            for (i in 0..2){
+                if(leftMotorPow>0)
+                    leftMotorPow--
+                if(rightMotorPow>0)
+                    rightMotorPow--
+            }
+        }
+        else if(strength<90){
+            for (i in 0..1){
                 if(leftMotorPow>0)
                     leftMotorPow--
                 if(rightMotorPow>0)
@@ -187,10 +190,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
-        val b = ByteArray(2)
-        b[0] = Integer.parseInt("00000000", 2).toByte();
-        b[1] = Integer.parseInt("00000000", 2).toByte();
-        bConn.sendData(b)
+        leftMotorPow = 0
+        rightMotorPow = 0
+        leftMotorDir = 0
+        rightMotorDir = 0
+        sendData()
         bConn.disconnect()
         super.onStop()
     }
@@ -199,10 +203,13 @@ class MainActivity : AppCompatActivity() {
         var isConnStart = bConn.connect(this,MAC_ADDRESS, object : BLEConnection.ConnectionChangedListener{
             override fun onConnectionChanged(connected: Boolean) {
                 runOnUiThread {
-                    if(connected)
+                    if(connected){
                         lblInfo.setText("Connected")
-                    else
+                    }
+                    else {
                         lblInfo.setText("Not connected")
+                        getConnection()
+                    }
                 }
             }
         })
