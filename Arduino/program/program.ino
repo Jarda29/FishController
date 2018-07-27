@@ -1,5 +1,5 @@
 #include <SoftwareSerial.h>
-SoftwareSerial BT(5,4 );
+SoftwareSerial BT(0,1);
 
 int LEFT_MOTOR_DIGITAL = 10;
 int LEFT_MOTOR_PWM = 11;
@@ -10,7 +10,7 @@ int MIDLE_MOTOR_PWM = 6;
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  //Serial.begin(9600);
   BT.begin(9600);
   pinMode(LEFT_MOTOR_DIGITAL, OUTPUT);
   pinMode(LEFT_MOTOR_PWM, OUTPUT);
@@ -23,7 +23,7 @@ void setup() {
 void loop() {
   byte data[2];
   if(BT.available()>0){
-    Serial.println("reading");
+    //Serial.println("reading");
     data[0] = BT.read();
     delay(50);
     data[1] = BT.read();
@@ -38,10 +38,10 @@ void loop() {
       setLeftMotor(0, LOW);
       setRightMotor(0, LOW);
       setMidleMotor(0, LOW);
-      if(d == 78)
+      /*if(d == 78)
         Serial.println("CONNECTED");
       if(d == 84)
-        Serial.println("DISCONNECTED");
+        Serial.println("DISCONNECTED");*/
       return;
     }
     
@@ -49,13 +49,13 @@ void loop() {
     int values2[8];
     CrackByte(data[0], values);
     CrackByte(data[1], values2);
-    Serial.println("val1");
+    /*Serial.println("val1");
     for(int i=0;i<8;i++)
       Serial.println(values[i]);
 
       Serial.println("val2");
     for(int i=0;i<8;i++)
-      Serial.println(values2[i]);
+      Serial.println(values2[i]);*/
 
    int leftPower, rightPower, midlePower = 0;
    int leftDir, rightDir, midleDir = 0;

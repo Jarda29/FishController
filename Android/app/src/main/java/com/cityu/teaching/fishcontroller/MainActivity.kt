@@ -56,13 +56,79 @@ class MainActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
         })
-
         joyStick.setOnMoveListener { angle, strength ->
             //println(angle.toString() + " - "+strength)
             calculatePerformance(angle, strength)
             sendData()
         }
 
+        btnForward.setOnClickListener{
+            if(!bConn.canSendData())
+                return@setOnClickListener
+            if(leftMotorPow>0 || rightMotorPow>0){
+                leftMotorPow = 0
+                rightMotorPow = 0
+                sendData()
+                return@setOnClickListener
+            }
+            leftMotorPow = 7
+            rightMotorPow = 7
+            leftMotorDir = 1
+            rightMotorDir = 1
+            sendData()
+        }
+        btnReverse.setOnClickListener{
+            if(!bConn.canSendData())
+                return@setOnClickListener
+            if(leftMotorPow>0 || rightMotorPow>0){
+                leftMotorPow = 0
+                rightMotorPow = 0
+                sendData()
+                return@setOnClickListener
+            }
+            leftMotorPow = 7
+            rightMotorPow = 7
+            leftMotorDir = 0
+            rightMotorDir = 0
+            sendData()
+        }
+        btnLeft.setOnClickListener{
+            if(!bConn.canSendData())
+                return@setOnClickListener
+            if(leftMotorPow>0 || rightMotorPow>0){
+                leftMotorPow = 0
+                rightMotorPow = 0
+                sendData()
+                return@setOnClickListener
+            }
+            leftMotorPow = 7
+            rightMotorPow = 7
+            leftMotorDir = 0
+            rightMotorDir = 1
+            sendData()
+        }
+        btnRight.setOnClickListener{
+            if(!bConn.canSendData())
+                return@setOnClickListener
+            if(leftMotorPow>0 || rightMotorPow>0){
+                leftMotorPow = 0
+                rightMotorPow = 0
+                sendData()
+                return@setOnClickListener
+            }
+            leftMotorPow = 7
+            rightMotorPow = 7
+            leftMotorDir = 1
+            rightMotorDir = 0
+            sendData()
+        }
+        btnReconnect.setOnClickListener {
+            bConn.disconnect()
+            bConn = BLEConnection()
+            if(bConn.canSendData())
+                return@setOnClickListener
+            getConnection()
+        }
     }
     private fun calculatePerformance(angle: Int, strength: Int) {
         if(angle<30 || angle>330){

@@ -10,37 +10,35 @@
         android:id="@+id/lblInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="296dp"
+        android:layout_marginTop="44dp"
         android:text="Connecting..."
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnReconnect"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839" />
+        app:layout_constraintTop_toBottomOf="@+id/btnRight" />
 
     <Button
         android:id="@+id/btnStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginStart="20dp"
         android:text="STOP"
-        app:layout_constraintBottom_toTopOf="@+id/seekPitch"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/seekPitch" />
 
     <SeekBar
         android:id="@+id/seekPitch"
         android:layout_width="356dp"
         android:layout_height="49dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="14dp" />
+        tools:layout_editor_absoluteX="5dp" />
 
     <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/joyStick"
         android:layout_width="359dp"
-        android:layout_height="362dp"
+        android:layout_height="243dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         custom:JV_backgroundColor="#009688"
         custom:JV_borderColor="#00796B"
@@ -49,55 +47,57 @@
         custom:JV_buttonSizeRatio="15%"
         custom:JV_fixedCenter="false"
         custom:layout_constraintEnd_toEndOf="parent"
-        custom:layout_constraintStart_toStartOf="parent"
         custom:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnForward"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:visibility="gone"
-        app:srcCompat="@android:drawable/arrow_up_float"
-        tools:layout_editor_absoluteX="22dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginStart="116dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/arrow_up_float" />
 
     <ImageButton
         android:id="@+id/btnReverse"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:visibility="gone"
-        app:srcCompat="@android:drawable/arrow_down_float"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnForward"
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
     <ImageButton
         android:id="@+id/btnLeft"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:rotation="270"
-        android:visibility="gone"
-        app:srcCompat="@android:drawable/arrow_up_float"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnForward"
+        app:srcCompat="@android:drawable/arrow_up_float" />
 
     <ImageButton
         android:id="@+id/btnRight"
         android:layout_width="90dp"
         android:layout_height="90dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="8dp"
         android:rotation="90"
-        android:visibility="gone"
-        app:srcCompat="@android:drawable/arrow_up_float"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintStart_toEndOf="@+id/btnLeft"
+        app:layout_constraintTop_toBottomOf="@+id/btnForward"
+        app:srcCompat="@android:drawable/arrow_up_float" />
 
     <Button
         android:id="@+id/btnReconnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:text="Reconnect"
-        app:layout_constraintBottom_toTopOf="@+id/seekPitch"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnStop" />
 
 </android.support.constraint.ConstraintLayout>
